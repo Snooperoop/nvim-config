@@ -1,13 +1,51 @@
 return {
   {
     "folke/which-key.nvim",
-    event = "VeryLazy",
+    lazy = false,
+
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
 
     config = function()
       local wk = require("which-key")
 
       wk.setup({
-        delay = 500,
+        preset = "classic",
+
+        -- Make which-key pop up immediately
+        delay = 0,
+
+        -- Auto-detect mappings/prefixes
+        triggers = {
+          { "<auto>", mode = "nixsotc" },
+        },
+
+        plugins = {
+          marks = true,
+          registers = true,
+
+          spelling = {
+            enabled = true,
+            suggestions = 20,
+          },
+
+          presets = {
+            operators = true,
+            motions = true,
+            text_objects = true,
+            windows = true,
+            nav = true,
+            z = true,
+            g = true,
+          },
+        },
+
+        win = {
+          border = "rounded",
+          padding = { 1, 2 },
+        },
       })
 
       -- Global toggle states
@@ -75,4 +113,3 @@ return {
     end,
   },
 }
-
